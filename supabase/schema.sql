@@ -1,0 +1,2 @@
+-- Put your schema + RLS SQL here (tables, enums, policies).
+-- Run it in Supabase SQL Editor before seeding content.
