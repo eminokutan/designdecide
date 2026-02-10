@@ -5,8 +5,8 @@ export function supabaseServer() {
   const cookieStore = cookies();
 
   return createServerClient(
-    process.env.https://fuqpqwvvhpqteoiwlxcr.supabase.co!,
-    process.env.sb_publishable_DRTqL7IXk4X-g6FrsKGlmw_hKeKNN0j!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         get(name: string) {
@@ -16,11 +16,11 @@ export function supabaseServer() {
           cookieStore.set(name, value, options);
         },
         remove(name: string, options: CookieOptions) {
-          // Expire the cookie
           cookieStore.set(name, "", { ...options, maxAge: 0 });
         },
       },
     }
   );
 }
+
 
