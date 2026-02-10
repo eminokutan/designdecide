@@ -1,8 +1,16 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import type { CookieOptions } from "@supabase/ssr";
+
+type CookieToSet = {
+  name: string;
+  value: string;
+  options: CookieOptions;
+};
 
 export function supabaseServer() {
   const cookieStore = cookies();
+
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -11,10 +19,10 @@ export function supabaseServer() {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options)
-          );
+        setAll(cookiesToSet: CookieToSet[]) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            cookieStore.set(name, value, options);
+          });
         },
       },
     }
